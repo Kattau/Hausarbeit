@@ -1,8 +1,9 @@
 import numpy as np
 import scipy as sp
 from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
 import os
-def _unpacker(file_path):
+def unpacker(file_path):
     """Takes a FIle as Input and outputs seperated variables for further use
     Input: Txt File in the given Format;
 
@@ -15,7 +16,8 @@ def _unpacker(file_path):
     with open(file_path) as f:
         Data = f.readlines()
     M=float(Data[0].split()[0])
-    E=np.array(Data[2].split()[0:2])
+    E=[int(Data[2].split()[0])]
+    E.append(int(Data[2].split()[1]))
     xstring=Data[1].split()
     x=np.linspace(float(xstring[0]),float(xstring[1]),int(xstring[2]))
     xx=[]
@@ -25,8 +27,20 @@ def _unpacker(file_path):
         yy.append(float(Data[ii+5].split()[1]))
     V=interp1d(xx,yy,Data[3].split()[0])
     Vx=V(x)
+    Delta= (float(xstring[1]) - float(xstring[0]))/int(xstring[2])
     np.savetxt('potential.txt',np.c_[x, Vx])
-    print(np.c_[x, Vx])
-    return(V,M,x,E)
+    return( Vx , M , x , E , Delta)
+
+def schrodinger(file_path):
+    Vx,M,x,E,Delta =unpacker(file_path)
+    diag= 1/(M*Delta**2)+Vx
+    ndiag= [-1/2*1/(M*Delta**2)]*(len(x)-1)
+    w,v=sp.linalg.eigh_tridiagonal(diag,ndiag,select='i',select_range=E)
+    plt.ylim(min(Vx)-1,max(w)+1)
+    plt.plot(x,Vx)
+    for i in range(len(w)):
+        plt.plot(x,v[:,i ]+w[i])
+    plt.show()
+    
 file_path = input('Enter a file path: ')
-_unpacker(file_path)
+schrodinger(file_path)
