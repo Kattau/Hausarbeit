@@ -1,2 +1,9 @@
 Testfile.txt
 potential.txt
+Eigenstates.txt
+Eigenvalues.txt
+Harmonischer Oszillator.txt
+Morse Potential.txt
+Unendlich tiefer Potentialtopf.txt
+.vscode/
+__pycache__/

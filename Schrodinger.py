@@ -2,9 +2,8 @@ import numpy as np
 import scipy as sp
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
-import os
-def unpacker(file_path):
-    """Takes a FIle as Input and outputs seperated variables for further use
+def _unpacker(file_path: str):
+    """Takes a File as Input and outputs seperated variables for further use
     Input: Txt File in the given Format;
 
     Output:
@@ -31,16 +30,24 @@ def unpacker(file_path):
     np.savetxt('potential.txt',np.c_[x, Vx])
     return( Vx , M , x , E , Delta)
 
-def schrodinger(file_path):
-    Vx,M,x,E,Delta =unpacker(file_path)
+def schrodinger(file_path: str):
+    """Solves the Schrodinger Equation for given Parameters and Potential and saves the Output in seperat files.
+    Input: Txt File
+
+    Output:
+    w: Array, Eigenvalues in the given Interval
+    """
+    Vx,M,x,E,Delta =_unpacker(file_path)
     diag= 1/(M*Delta**2)+Vx
     ndiag= [-1/2*1/(M*Delta**2)]*(len(x)-1)
     w,v=sp.linalg.eigh_tridiagonal(diag,ndiag,select='i',select_range=E)
+    np.savetxt('Eigenstates.txt',np.c_[x, v])
+    np.savetxt('Eigenvalues.txt',w)
     plt.ylim(min(Vx)-1,max(w)+1)
     plt.plot(x,Vx)
     for i in range(len(w)):
         plt.plot(x,v[:,i ]+w[i])
     plt.show()
-    
+    return(w)
 file_path = input('Enter a file path: ')
 schrodinger(file_path)
