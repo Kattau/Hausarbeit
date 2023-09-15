@@ -1,4 +1,3 @@
-#Doppelter Potentialtopf (natürlicher kubischer Spline)
 4.0              # mass
 -20.0 20.0 1999  # xMin xMax nPoint
 1 10            # first and last eigenvalue to include in the output

@@ -1,4 +1,3 @@
-#Doppelter Potentialtopf (linear)
 2.0              # mass
 -20.0 20.0 1999  # xMin xMax nPoint
 1 16                # first and last eigenvalue to print
