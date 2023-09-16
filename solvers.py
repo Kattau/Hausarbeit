@@ -80,10 +80,4 @@ def schrodinger(file_path: str):
     np.savetxt('energies.dat',w)
     np.savetxt('expvalues.dat',np.c_[x_explist, unschärfe])
 
-    plt.ylim(min(Vx)-1,max(w)+1)
-    plt.plot(x,Vx)
-    for i in range(len(w)):
-        #plt.plot(x,abs(v[:,i ])**2+w[i])
-        plt.plot(x,v[:,i ]/3+w[i])
-    plt.show()
-    return(w)
+    return(w, Vx, x, v)
