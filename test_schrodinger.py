@@ -37,6 +37,7 @@ def test_schrodinger_ho():
     assert np.all(potentials_sol_ho[0:5] - w_ref_ho[1] < 0.01) #testing for potentials
     assert np.all(w_ref_ho[1] - potentials_sol_ho[0:5] < 0.01) #testing for potentials
 
+
 def test_schrodinger_dp():
     """Test for double potential pot (linear)"""
     w_sol_dp = schrodinger('/Users/marenbackes/Hausarbeit/schrodinger_dPT.inp')
