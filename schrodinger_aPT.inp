@@ -1,6 +1,7 @@
 1.0 # mass
 0.0 20.0 1999 # xMin xMax nPoint
-17 # first and last eigenvalue to include in the output cspline # interpolation type
+1 7 # first and last eigenvalue to include in the output 
+cspline # interpolation type
 12 # nr. of interpolation points and xy declarations
 0.0  30.0
 1.0  11.8

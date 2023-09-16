@@ -48,4 +48,5 @@ def schrodinger(file_path: str):
     #for i in range(len(w)):
     #    plt.plot(x,v[:,i ]+w[i])
     #plt.show()
-    return(w)
+    result = (w, Vx)
+    return(result)
