@@ -10,11 +10,7 @@ def _unpacker(file_path: str):
     V: Array, Potential from the given Interpolation
     M: Variable, Mass of the Object
     x: Array, x-Values for the Solver
-<<<<<<< HEAD
-    E: Array, number of Eigenvalues to find
-=======
     E: Array, Eigenvalues to find
->>>>>>> 28778fd24e582cdbe891ec5498bbc0e1783761a1
     """
     with open(file_path) as f:
         Data = f.readlines()
@@ -28,12 +24,6 @@ def _unpacker(file_path: str):
     for ii in range(len(Data)-5):
         xx.append(float(Data[ii+5].split()[0]))
         yy.append(float(Data[ii+5].split()[1]))
-<<<<<<< HEAD
-    V=interp1d(xx,yy,Data[3].split()[0])
-    Vx=V(x)
-    Delta= (float(xstring[1]) - float(xstring[0]))/int(xstring[2])
-    np.savetxt('potential.txt',np.c_[x, Vx])
-=======
 
     if Data[3].split()[0] =='cspline':
         V=interp1d(xx,yy,'cubic')
@@ -47,7 +37,6 @@ def _unpacker(file_path: str):
 
     Delta= (float(xstring[1]) - float(xstring[0]))/int(xstring[2])
     np.savetxt('potential.dat',np.c_[x, Vx])
->>>>>>> 28778fd24e582cdbe891ec5498bbc0e1783761a1
     return( Vx , M , x , E , Delta)
 
 def schrodinger(file_path: str):
@@ -61,17 +50,6 @@ def schrodinger(file_path: str):
     diag= 1/(M*Delta**2)+Vx
     ndiag= [-1/2*1/(M*Delta**2)]*(len(x)-1)
     w,v=sp.linalg.eigh_tridiagonal(diag,ndiag,select='i',select_range=E)
-<<<<<<< HEAD
-    np.savetxt('Eigenstates.txt',np.c_[x, v])
-    np.savetxt('Eigenvalues.txt',w)
-    #plt.ylim(min(Vx)-1,max(w)+1)
-    #plt.plot(x,Vx)
-    #for i in range(len(w)):
-    #    plt.plot(x,v[:,i ]+w[i])
-    #plt.show()
-    result = (w, Vx)
-    return(result)
-=======
 
     for i in range((E[1]-E[0])+1):
         norm = 0
@@ -102,11 +80,4 @@ def schrodinger(file_path: str):
     np.savetxt('energies.dat',w)
     np.savetxt('expvalues.dat',np.c_[x_explist, unschärfe])
 
-    plt.ylim(min(Vx)-1,max(w)+1)
-    plt.plot(x,Vx)
-    for i in range(len(w)):
-        #plt.plot(x,abs(v[:,i ])**2+w[i])
-        plt.plot(x,v[:,i ]/3+w[i])
-    plt.show()
-    return(w)
->>>>>>> 28778fd24e582cdbe891ec5498bbc0e1783761a1
+    return(w, Vx, x, v)
