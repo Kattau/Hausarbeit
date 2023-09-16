@@ -46,6 +46,6 @@ def schrodinger(file_path: str):
     #plt.ylim(min(Vx)-1,max(w)+1)
     #plt.plot(x,Vx)
     #for i in range(len(w)):
-        #plt.plot(x,v[:,i ]+w[i])
+    #    plt.plot(x,v[:,i ]+w[i])
     #plt.show()
     return(w)
