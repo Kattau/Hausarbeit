@@ -10,7 +10,11 @@ def _unpacker(file_path: str):
     V: Array, Potential from the given Interpolation
     M: Variable, Mass of the Object
     x: Array, x-Values for the Solver
+<<<<<<< HEAD
     E: Array, Eigenvalues to find
+=======
+    E: Array, number of Eigenvalues to find
+>>>>>>> testing
     """
     with open(file_path) as f:
         Data = f.readlines()
@@ -43,9 +47,19 @@ def schrodinger(file_path: str):
     w,v=sp.linalg.eigh_tridiagonal(diag,ndiag,select='i',select_range=E)
     np.savetxt('Eigenstates.txt',np.c_[x, v])
     np.savetxt('Eigenvalues.txt',w)
+<<<<<<< HEAD
     plt.ylim(min(Vx)-1,max(w)+1)
     plt.plot(x,Vx)
     for i in range(len(w)):
         plt.plot(x,v[:,i ]+w[i])
     plt.show()
     return(w)
+=======
+    #plt.ylim(min(Vx)-1,max(w)+1)
+    #plt.plot(x,Vx)
+    #for i in range(len(w)):
+    #    plt.plot(x,v[:,i ]+w[i])
+    #plt.show()
+    result = (w, Vx)
+    return(result)
+>>>>>>> testing
