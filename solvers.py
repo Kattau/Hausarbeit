@@ -1,7 +1,7 @@
 import numpy as np
 import scipy as sp
 from scipy.interpolate import interp1d
-import matplotlib.pyplot as plt
+
 def _unpacker(file_path: str):
     """Takes a File as Input and outputs seperated variables for further use
     Input: Txt File in the given Format;
@@ -15,13 +15,13 @@ def _unpacker(file_path: str):
     with open(file_path) as f:
         Data = f.readlines()
     M=float(Data[0].split()[0])
-    E=[int(Data[2].split()[0])]
-    E.append(int(Data[2].split()[1]))
+    E=[int(Data[2].split()[0])-1]
+    E.append(int(Data[2].split()[1])-1)
     xstring=Data[1].split()
     x=np.linspace(float(xstring[0]),float(xstring[1]),int(xstring[2]))
     xx=[]
     yy=[]
-    for ii in range(len(Data)-5):
+    for ii in range(int(Data[4].split()[0])):
         xx.append(float(Data[ii+5].split()[0]))
         yy.append(float(Data[ii+5].split()[1]))
 
@@ -61,23 +61,28 @@ def schrodinger(file_path: str):
     x_explist=[]
     for i in range((E[1]-E[0])+1):
         x_exp = 0
-        for n in range(len(v)):
-            x_exp = x_exp + Delta*(v[n][i])*(v[n][0])*(v[n][i])
+        for n in range(len(v)-1):
+            x_exp = x_exp + Delta*(v[n+1][i])*x[n+1]*(v[n+1][i])
         x_explist.append(x_exp)
     
     x_sqlist=[]
     for i in range((E[1]-E[0])+1):
         x_sq = 0
-        for n in range(len(v)):
-            x_sq = x_sq + Delta*(v[n][i])*(v[n][0])**2*(v[n][i])
+        for n in range(len(v)-1):
+            x_sq = x_sq + Delta*(v[n+1][i])*x[n+1]**2*(v[n+1][i])
         x_sqlist.append(x_sq)
 
     unschärfe=[]
     for n in range(len(x_explist)):
         unschärfe.append(np.sqrt(x_sqlist[n]-(x_explist[n])**2))
-    
-    np.savetxt('wavefuncs.dat',np.c_[x, v])
-    np.savetxt('energies.dat',w)
-    np.savetxt('expvalues.dat',np.c_[x_explist, unschärfe])
 
-    return(w, Vx, x, v)
+    path=" "
+    if len(file_path)>15:
+        path=file_path[0:-15]
+
+    
+    np.savetxt(str(path) +'wavefuncs.dat',np.c_[x, v])
+    np.savetxt(str(path) +'energies.dat',w)
+    np.savetxt(str(path) +'expvalues.dat',np.c_[x_explist, unschärfe])
+
+    return(w, Vx, x, v, x_explist,unschärfe)
