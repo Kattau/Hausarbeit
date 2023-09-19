@@ -1,21 +1,30 @@
 **********************************
-Solver of the Schrodinger Equation
+Solver of the schrodinger equation
 **********************************
-Takes a settings file as Input and Outsputs a given Number of Solutions
 
 ***********
 Description
 ***********
-
-Inputfile should be in the given Format
-Outputs are stored in seperat files.
+This application uses an imputfile in a given Format to solve the schrodinger equation under the given Conditions.
+The solutions are saved as multiple .dat files. THe application also presents the user with a grafic containing the processed data.
+To solve the schrodinger equation a method of representing the problem as a matrix is used to find the eigenvalues. 
+For the simplicity, the solver uses atomic units and the solutions are presented in the units Hartree for energy and Bohr for the distance.
+The results of this application are the values for the used potential, the eigenvalues and wavefunctions, the expected values for x and x squared, as well as their uncertainty.
 
 ***********
-Steps to do
+How to Use the Project
 ***********
+To start using the application, the modules numpy, scipy, matplotlib, os and argparse are required.
+The inputfile schould use the following format and be called schrodinger.inp:
 
-1. Implement a function to unpack the data in the given file
-2. Implement a function to solve the schrodinger equation using the given data
-3. Implement a test to check if the solver works correctly
-4. Implement a plotting function in a seperate file to plot the output of the schrodinger equation
-5. Improve Documentation
+mass of the object
+xMin xMax nomber of points
+first and last eigenvalue to print
+interpolation type (eg.: linear, polynomial, cspline)
+nr. of interpolation points
+xy declarations for the interpolation points in the following rows
+
+The schrodinger.inp file is expected to be in the same directory as the application.
+Should that not be the case, the directory can be changed by adding -d "directory path" when running the script.
+Example: python schrodinger.py -d C:/Users/test
+The results will be located in the same directory as the input file. 
