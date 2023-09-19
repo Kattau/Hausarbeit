@@ -6,9 +6,10 @@ from visualizer import visualizer
 
 
 parser = ArgumentParser(description='Change working directory')
-parser.add_argument("-d", "--directory", dest="directory", default= os.path.dirname(__file__), type=ascii)
+parser.add_argument("-d", "--directory", dest="directory", type=ascii)
 path = parser.parse_args()
-FILE_PATH = str(path.directory)[1:-1] + "schrodinger.inp"
-print(FILE_PATH)
+FILE_PATH = str(path.directory)[1:-1] + "/schrodinger.inp"
+if str(path.directory) == "None":
+    FILE_PATH = os.getcwd() + "/schrodinger.inp"
 schrodinger(FILE_PATH)
 visualizer(FILE_PATH)

@@ -11,7 +11,6 @@ def visualizer(file_path):
     ax1.set_ylim(min(vx_potential)-0.25,max(eigen)+0.25)
     ax1.plot(x_value, vx_potential)
     for i in range(len(eigen)):
-        #plt.plot(x,abs(v_potent[:,i ])**2+eigen[i])
         ax1.set_title("Potential, eigenstates, <x>")
         ax1.set_xlabel("x [Bohr]")
         ax1.set_ylabel("Energy [Hartree]")
