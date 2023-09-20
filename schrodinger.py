@@ -1,4 +1,4 @@
-"""importing all necessary packages and modules"""
+"""Analyze the import arguments to execute the schrodinger module with"""
 from argparse import ArgumentParser
 import os
 from solvers import schrodinger
